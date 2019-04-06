@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>录入数据_报单系统</title>
+    <script type="text/javascript" src="/static/js/jquery-1.10.2.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- import Vue before Element -->
+    <!-- <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.9/index.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+
+</head>
+<body>
+        <div class="container_main">
+            
+<style>
+    label{ font-weight: normal;}
+    .el-textarea__inner{ height: 80px;}
+    .block_title{padding:8px 0 8px 12px; font-size: 16px; font-weight: bold; color: #438eb9; border-bottom: #999 dotted 1px; margin-bottom: 15px;}
+</style>
+<div id="app" style=" max-width: 1240px; font-weight: normal ">
+    <el-form ref="form" :model="form" :inline="true" label-width="80px" size="small">
+        <div class="block block_title">基本信息</div>
+        <el-form-item label="选择医院">
+            <el-select v-model="form.hospitalid" filterable @change="handleHospitalFilter" placeholder="请选择医院" style=" width:209px;">
+                <el-option v-for="item in initform.hospitals"
+                           :key="item.id"
+                           :label="item.hospitalname"
+                           :value="item.id"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="选择科室" >
+            <el-select v-model="form.departid" placeholder="请先选择医院" style=" width:209px;">
+                <el-option v-for="item in initform.departs"
+                           :key="item.id"
+                           :label="item.departname"
+                           :value="item.id"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="当前进度" >
+            <el-select v-model="form.program_status" placeholder="当前进度" style=" width:209px;">
+                <el-option label="初步跟进" value="1"></el-option>
+                <el-option label="商务洽谈" value="2"></el-option>
+                <el-option label="签订合同" value="3"></el-option>
+                <el-option label="项目对接" value="4"></el-option>
+                <el-option label="项目打款" value="5"></el-option>
+            </el-select>
+        </el-form-item>
+
+        <el-form-item label="资料来源" >
+            <el-select v-model="form.source" placeholder="资料来源" style=" width:209px;">
+                <el-option label="销售渠道" value="1"></el-option>
+                <el-option label="朋友介绍" value="2"></el-option>
+                <el-option label="代理商" value="3"></el-option>
+                <el-option label="公司提供" value="4"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="联系人" >
+            <el-input v-model="form.contacter" placeholder="联系人" style=" width:209px;"></el-input>
+        </el-form-item>
+        <el-form-item label="联系电话" >
+            <el-input v-model="form.contactertel"  onkeyup="value=value.replace(/[^\d]/g,'')" maxlength=11 placeholder="联系电话" style=" width:209px;"></el-input>
+        </el-form-item>
+        <el-form-item label="微信" >
+            <el-input v-model="form.contacterweixin" placeholder="微信" style=" width:209px;"></el-input>
+        </el-form-item>
+        <el-form-item label="QQ" >
+            <el-input v-model="form.contacterqq" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="QQ" style=" width:209px;"></el-input>
+        </el-form-item>
+        <el-form-item label="合作类型" >
+            <el-select v-model="form.cooperationmode" placeholder="合作类型" style=" width:209px;">
+                <el-option label="公有云" value="1"></el-option>
+                <el-option label="私有云" value="2"></el-option>
+                <el-option label="订制开发" value="3"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="项目对接" >
+            <el-select v-model="form.pickuppeople" filterable placeholder="项目对接人" style=" width:209px;">
+                <el-option v-for="item in initform.users"
+                           :key="item.id"
+                           :label="item.realname"
+                           :value="item.id"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="选择部门" v-if='show.sale'>
+            <el-select v-model="form.saledepartid" filterable placeholder="销售部门" style=" width:209px;">
+                <el-option v-for="item in initform.saledepart"
+                           :key="item.id"
+                           :label="item.departname"
+                           :value="item.id"></el-option>
+            </el-select>
+        </el-form-item>
+        <div v-if="show.pro">
+            <div class="block block_title">项目信息</div>
+            <div class="block">
+                <el-form-item label="开通时间" >
+                    <el-date-picker
+                            v-model="form.starttime"
+                            type="date" :editable="false"
+                            placeholder="选择日期" value-format="yyyy-MM-dd" style="width: 209px;">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="到期时间" >
+                    <el-date-picker
+                            v-model="form.endtime"
+                            type="date" :editable="false"
+                            placeholder="选择日期" value-format="yyyy-MM-dd" style="width: 209px;">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="续费时间" >
+                    <el-date-picker
+                            v-model="form.rechargetime"
+                            type="date" :editable="false"
+                            placeholder="选择日期" value-format="yyyy-MM-dd" style="width: 209px;">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="赠送时长" >
+                    <el-select v-model="form.givetime" placeholder="赠送时长">
+                        <el-option label="0天" value="0"></el-option>
+                        <el-option label="30天" value="30"></el-option>
+                        <el-option label="60天" value="60"></el-option>
+                        <el-option label="90天" value="90"></el-option>
+                        <el-option label="120天" value="120"></el-option>
+                        <el-option label="150天" value="150"></el-option>
+                        <el-option label="180天" value="180"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="百度API">
+                    <el-input v-model="form.apibaidu"  style="width: 209px;" placeholder="填写规则说明"></el-input>
+                </el-form-item>
+                <el-form-item label="搜狗API">
+                    <el-input v-model="form.apisogou" style="width: 209px;" placeholder="填写规则说明"></el-input>
+                </el-form-item>
+                <el-form-item label="神马API">
+                    <el-input v-model="form.apishenma" style="width: 209px;" placeholder="填写规则说明"></el-input>
+                </el-form-item>
+                <el-form-item label="360API">
+                    <el-input v-model="form.api360" style="width: 209px;" placeholder="填写规则说明"></el-input>
+                </el-form-item>
+                <el-form-item label="预约系统" >
+                    <el-select v-model="form.crm" placeholder="预约系统" style=" width:209px;">
+                        <el-option label="已对接" value="1"></el-option>
+                        <el-option label="未对接" value="2"></el-option>
+                        <el-option label="无系统" value="3"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="聊天软件" >
+                    <el-select v-model="form.chattool" placeholder="聊天软件" style=" width:209px;">
+                        <el-option label="商务通" value="1"></el-option>
+                        <el-option label="快商通" value="2"></el-option>
+                        <el-option label="美洽" value="3"></el-option>
+                        <el-option label="百度商桥" value="4"></el-option>
+                        <el-option label="53客服" value="5"></el-option>
+                    </el-select>
+                </el-form-item>
+            </div>
+        </div>
+        <div v-if="show.finance">
+            <div class="block block_title">财务信息</div>
+            <div class="block">
+                <el-form-item label="介绍人" >
+                    <el-input v-model="form.introducer" style="width: 209px;" placeholder="介绍人" :disabled="financedisabled"></el-input>
+                </el-form-item>
+                <el-form-item label="联系方式" >
+                    <el-input v-model="form.introducertel" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength=11 style="width: 209px;" placeholder="介绍人联系方式" :disabled="financedisabled"></el-input>
+                </el-form-item>
+                <el-form-item label="返点比例" >
+                    <el-input v-model="form.returnpointratio" onkeyup="value=value.replace(/[^\d\.]/g,'')" style="width: 209px;" placeholder="返点比例" :disabled="financedisabled"></el-input>
+                </el-form-item>
+                <el-form-item label="返款人" >
+                    <el-input v-model="form.returnmoneypeople" style="width: 209px;" placeholder="返款人" :disabled="financedisabled"></el-input>
+                </el-form-item>
+            </div>
+            <div class="block">
+                <el-form-item label="返款方式" >
+                    <el-select v-model="form.returnmoneyway" placeholder="返款方式" :disabled="financedisabled" style="width: 209px;">
+                        <el-option label="工商银行" value="1"></el-option>
+                        <el-option label="农业银行" value="2"></el-option>
+                        <el-option label="建设银行" value="3"></el-option>
+                        <el-option label="支付宝" value="4"></el-option>
+                        <el-option label="微信支付" value="5"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="返款账户" >
+                    <el-input v-model="form.returnmoneyaccount" placeholder="返款账户" :disabled="financedisabled" style="width: 209px;"></el-input>
+                </el-form-item>
+                <el-form-item label="支出方式" >
+                    <el-select v-model="form.payway" placeholder="支出方式" :disabled="financedisabled" style="width: 209px;">
+                        <el-option label="工商银行" value="1"></el-option>
+                        <el-option label="农业银行" value="2"></el-option>
+                        <el-option label="建设银行" value="3"></el-option>
+                        <el-option label="支付宝" value="4"></el-option>
+                        <el-option label="微信支付" value="5"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="支出账户" >
+                    <el-input v-model="form.payaccount" placeholder="支出账户" :disabled="financedisabled" style="width: 209px;"></el-input>
+                </el-form-item>
+                <el-form-item label="是否付款" >
+                    <el-select v-model="form.whethertopay" placeholder="是否付款" :disabled="financedisabled" style="width: 209px;">
+                        <el-option label="已付清" value="1"></el-option>
+                        <el-option label="未付清" value="2"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="付款金额" >
+                    <el-input v-model="form.paymentamount" onkeyup="value=value.replace(/[^\d\.]/g,'')" style="width: 209px;" placeholder="付款金额" :disabled="financedisabled"></el-input>
+                </el-form-item>
+                <el-form-item label="结算方式" >
+                    <el-select v-model="form.jiesuanfangshi" placeholder="结算方式" :disabled="financedisabled" style="width: 209px;">
+                        <el-option label="月付" value="1"></el-option>
+                        <el-option label="季付" value="2"></el-option>
+                        <el-option label="年付" value="3"></el-option>
+                    </el-select>
+                </el-form-item>
+            </div>
+            <div class="block">
+                <el-form-item label="备注说明">
+                    <el-input type="textarea" v-model="form.desc" style="width: 528px; " height="180" :disabled="financedisabled"></el-input>
+                </el-form-item>
+            </div>
+        </div>
+        <el-form-item style="display: block; padding-left: 80px;" size="small">
+            <el-button type="primary" @click="handleSubmit" icon="el-icon-circle-check-outline">点击保存</el-button>
+        </el-form-item>
+    </el-form>
+
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                initform:{
+                    hospitals: [],
+                    departs: [],
+                    users:[],
+                    saledepart:[],
+                },
+                financedisabled:true,//财务信息不可修改状态
+                show:{
+                    pro:false,
+                    finance:false,
+                    sale:false,
+                },
+                form: {
+                    hospitalid:'',//选择医院
+                    departid:'',//科室
+                    program_status:'',//当前进度
+                    source:'',//资料来源
+                    contacter:'',//联系人
+                    contactertel:'',//联系电话
+                    contacterweixin:'',//微信
+                    contacterqq:'',//QQ
+                    cooperationmode:'',//合作类型
+                    pickuppeople:'',//项目对接
+                    saledepartid:'',//销售部门
+                    crm:'',//预约系统
+                    chattool:'',//聊天软件
+                    starttime:'',//开通时间
+                    endtime:'',//到期时间
+                    rechargetime:'',//续费时间
+                    givetime:'',//赠送时长
+                    apibaidu:'',//百度API
+                    apisogou:'',//搜狗API
+                    apishenma:'',//神马API
+                    api360:'',//360API
+                    introducer:'',//介绍人
+                    introducertel:'',//介绍人联系方式
+                    returnpointratio:'',//返点比例
+                    returnmoneypeople:'',//返款人
+                    returnmoneyway:'',//返款方式
+                    returnmoneyaccount:'',//返款账户
+                    payway:'',//支出方式
+                    payaccount:'',//支出账户
+                    whethertopay:'',//是否付款
+                    paymentamount:'',//付款金额
+                    jiesuanfangshi:'',//结算方式
+                    desc:'',//备注说明
+                }
+            }
+        },
+        methods: {
+            handleHospitalFilter(val){
+                this.initform.departs = []
+                this.form.departid = '';
+                axios({
+                    method:'post',
+                    url:'/api/ajaxGetDepart/',
+                    data: {'hospitalid':val,'hosdep':this.initform.hospitals},
+                }).then(resp=>{
+                    this.initform.departs = resp.data
+                }).catch(resp => {
+                    console.log('网络错误，请稍候重试！');
+                });
+            },
+            handleSubmit(){
+                form = this.form;
+                if(form.hospitalid =="" || form.departid =="" || form.program_status =="" || form.source =="" || form.contacter =="" || form.contactertel =="" || form.contacterweixin =="" || form.contacterqq =="" || form.cooperationmode =="" || form.pickuppeople ==""){
+                    this.$message({
+                        type: 'error',
+                        customClass:'msgoffset',
+                        message: '请认真填写基本信息!',
+                        showClose: true,
+                    });
+                    return false;
+                }
+                if(this.show.sale){
+                    if(form.saledepartid == ''){
+                        this.$message({
+                            type: 'error',
+                            customClass:'msgoffset',
+                            message: '请选择销售部门!',
+                            showClose: true,
+                        });
+                        return false;
+                    }
+                }
+                axios({
+                    method:'post',
+                    url:'/api/handleOrderSave/',
+                    data: {'id':'','hospitalid':form.hospitalid,'departid':form.departid,'process':form.program_status,'source':form.source,'contacter':form.contacter,'contactertel':form.contactertel,'contacterweixin':form.contacterweixin,'contacterqq':form.contacterqq,'cooperationmode':form.cooperationmode,'pickuppeople':form.pickuppeople,'saledepartid':form.saledepartid,'crm':form.crm,'chattool':form.chattool,'starttime':form.starttime,'endtime':form.endtime,'rechargetime':form.rechargetime,'givetime':form.givetime,'apibaidu':form.apibaidu,'apisogou':form.apisogou,'apishenma':form.apishenma,'api360':form.api360,'introducer':form.introducer,'introducertel':form.introducertel,'returnpointratio':form.returnpointratio,'returnmoneypeople':form.returnmoneypeople,'returnmoneyway':form.returnmoneyway,'returnmoneyaccount':form.returnmoneyaccount,'payway':form.payway,'payaccount':form.payaccount,'whethertopay':form.whethertopay,'paymentamount':form.paymentamount,'jiesuanfangshi':form.jiesuanfangshi,'desc':form.desc},
+                }).then(resp=>{
+                    res = resp.data;
+                    if(res.code == 1){
+                        this.$message({type: 'success', customClass:'msgoffset', message: res.msg});
+                    }else{
+                        this.$message({type: 'error',customClass:'msgoffset',message: res.msg});
+                    }
+                }).catch(resp => {
+                    console.log('网络错误，请稍候重试！');
+                });
+            },
+            ajaxGetHospitals(){
+                axios({
+                    method:'post',
+                    url:'/api/ajaxGetHospital/',
+                    data: {},
+                }).then(resp=>{
+                    this.initform.hospitals = resp.data
+                }).catch(resp => {
+                    console.log('网络错误，请稍候重试！');
+                });
+            },
+            ajaxGetConsults(){
+                axios({
+                    method:'post',
+                    url:'/api/ajaxGetConsults/',
+                    data: {},
+                }).then(resp=>{
+                    res = resp.data;
+                    if(res.code == 1){
+                        this.initform.users = res.data
+                    }
+                }).catch(resp => {
+                    console.log('网络错误，请稍候重试！');
+                });
+            },
+            ajaxGetInData(){
+                axios({
+                    method:'post',
+                    url:'/api/ajaxGetInData/',
+                    data: {'type':1},
+                }).then(resp=>{
+                    console.log(resp)
+                    res = resp.data;
+                    if(res.code == 1){
+                        this.show.pro = res.data.pro;
+                        this.show.finance = res.data.finance;
+                        this.financedisabled = res.data.financedisabled;
+                    }else{
+                        this.$message({type: 'error',customClass:'msgoffset',message: res.msg});
+                    }
+                }).catch(resp => {
+                    console.log('网络错误，请稍候重试！');
+                });
+            },
+            ajaxDisSale(){
+                axios({
+                    method:'post',
+                    url:'/api/ajaxDisSale/',
+                    data: {},
+                }).then(resp=>{
+                    res = resp.data;
+                    if(res.code == 1){
+                        this.show.sale = res.data.showsale;
+                        this.initform.saledepart = res.data.sale;
+                    }else{
+                        this.$message({type: 'error',customClass:'msgoffset',message: res.msg});
+                    }
+                }).catch(resp => {
+                    console.log('网络错误，请稍候重试！');
+                });
+            },
+        },
+        mounted:function () {
+            this.ajaxDisSale();
+            this.ajaxGetHospitals();
+            this.ajaxGetConsults();
+            this.ajaxGetInData();
+        }
+    })
+</script>

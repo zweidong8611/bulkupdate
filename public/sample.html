@@ -1,0 +1,204 @@
+<html><head>
+    <meta charset="utf-8">
+    <title>济术_报单系统</title>
+<!--         <script type="text/javascript" src="/static/js/jquery-1.10.2.js"></script> -->
+        <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+        <!-- 引入样式 -->
+        <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+        <!-- import Vue before Element -->
+        <!-- <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+        <!-- 引入组件库 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.9/index.js"></script>
+        <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    
+        <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="./lmcss/style.css">
+    
+    </head>
+    <body style="overflow-y: hidden;">
+        <base target="main">
+        <div class="header" style="z-index: 100; ">
+            <div class="header_logo"><img src="/static/images/logo.png"></div>
+            <div class="header_nav">
+                <ul class="nav navbar-nav navbar-right" style="background: #579ec8;">
+                    <li class="dropdown">
+                        <a href="#;" class="dropdown-toggle header_nav_a" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 管理员 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/logout/" target="_self">安全退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="container_aside" style="z-index: 100;">
+            <ul>
+                                <li class="nav-item nav-show">
+                        <a href="javascript:;"><i class="el-icon-tickets"></i><span>报单管理</span><i class="el-icon-arrow-right nav-more"></i></a>
+                        <ul style="display: none;">
+                                                    <li><a href="/order/add/"><span>录入资料</span></a></li>
+                                                                                                                                                    <li><a href="/order/index/"><span>数据列表</span></a></li>
+                                                                            <li><a href="/order/docking/"><span>项目对接</span></a></li>
+                                                                        </ul>
+                    </li>
+                                                <li class="nav-item">
+                        <a href="javascript:;"><i class="el-icon-tickets"></i><span>个人中心</span><i class="el-icon-arrow-right nav-more"></i></a>
+                        <ul style="">
+                                                    <li><a href="/personal/profile/"><span>修改密码</span></a></li>
+                                                                        </ul>
+                    </li>
+                                                <li class="nav-item">
+                        <a href="javascript:;"><i class="el-icon-tickets"></i><span>系统设置</span><i class="el-icon-arrow-right nav-more"></i></a>
+                        <ul style="">
+                                                    <li><a href="/system/users/"><span>用户管理</span></a></li>
+                                                                            <li><a href="/system/authgroup/"><span>角色管理</span></a></li>
+                                                                            <li><a href="/system/sales/"><span>销售管理</span></a></li>
+                                                                            <li><a href="/system/products/"><span>产品管理</span></a></li>
+                                                                            <li><a href="/system/hospitals/"><span>医院管理</span></a></li>
+                                                                            <li><a href="/system/departs/"><span>科室管理</span></a></li>
+                                                                        </ul>
+                    </li>
+                                                <li class="nav-item">
+                        <a href="javascript:;"><i class="el-icon-tickets"></i><span>竞价工具</span><i class="el-icon-arrow-right nav-more"></i></a>
+                        <ul style="">
+                                                    <li><a href="/sem/useradd/"><span>账号添加</span></a></li>
+                                                                            <li><a href="/sem/users/"><span>账号管理</span></a></li>
+                                                                        </ul>
+                    </li>
+                                                <li class="nav-item">
+                        <a href="javascript:;"><i class="el-icon-tickets"></i><span>行为日志</span><i class="el-icon-arrow-right nav-more"></i></a>
+                        <ul style="">
+                                                    <li><a href="/logs/tool/"><span>排名工具</span></a></li>
+                                                                        </ul>
+                    </li>
+                                        </ul>
+        </div>
+        <iframe id="iframe" name="main" src="" allowtransparency="true" width="100%" height="100%" frameborder="0" scrolling="yes" style="overflow:visible;"></iframe>
+    <div id="think_page_trace" style="position: fixed;bottom:0;right:0;font-size:14px;width:100%;z-index: 999999;color: #000;text-align:left;font-family:'微软雅黑';">
+        <div id="think_page_trace_tab" style="display: none;background:white;margin:0;height: 250px;">
+            <div id="think_page_trace_tab_tit" style="height:30px;padding: 6px 12px 0;border-bottom:1px solid #ececec;border-top:1px solid #ececec;font-size:16px">
+                            <span style="color: rgb(0, 0, 0); padding-right: 12px; height: 30px; line-height: 30px; display: inline-block; margin-right: 3px; cursor: pointer; font-weight: 700;">基本</span>
+                            <span style="color: rgb(153, 153, 153); padding-right: 12px; height: 30px; line-height: 30px; display: inline-block; margin-right: 3px; cursor: pointer; font-weight: 700;">文件</span>
+                            <span style="color: rgb(153, 153, 153); padding-right: 12px; height: 30px; line-height: 30px; display: inline-block; margin-right: 3px; cursor: pointer; font-weight: 700;">流程</span>
+                            <span style="color: rgb(153, 153, 153); padding-right: 12px; height: 30px; line-height: 30px; display: inline-block; margin-right: 3px; cursor: pointer; font-weight: 700;">错误</span>
+                            <span style="color: rgb(153, 153, 153); padding-right: 12px; height: 30px; line-height: 30px; display: inline-block; margin-right: 3px; cursor: pointer; font-weight: 700;">SQL</span>
+                            <span style="color: rgb(153, 153, 153); padding-right: 12px; height: 30px; line-height: 30px; display: inline-block; margin-right: 3px; cursor: pointer; font-weight: 700;">调试</span>
+                        </div>
+            <div id="think_page_trace_tab_cont" style="overflow:auto;height:212px;padding:0;line-height: 24px">
+                            <div style="display: block;">
+                    <ol style="padding: 0; margin:0">
+                        <li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">请求信息 : 2019-04-05 21:16:39 HTTP/1.1 GET : http://lvy.mengxianfeng.club/</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">运行时间 : 0.016920s [ 吞吐率：59.10req/s ] 内存消耗：1,873.95kb 文件加载：67</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">查询信息 : 0 queries 0 writes </li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">缓存信息 : 0 reads,0 writes</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">会话信息 : SESSION_ID=2m0pgue0dgruvqjmqnf0k4rsd6</li>                </ol>
+                </div>
+                            <div style="display:none;">
+                    <ol style="padding: 0; margin:0">
+                        <li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/public/index.php ( 0.82 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/base.php ( 1.71 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Loader.php ( 12.70 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/vendor/composer/autoload_static.php ( 1.00 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Error.php ( 4.00 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Container.php ( 15.53 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/App.php ( 26.70 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Env.php ( 2.85 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Config.php ( 9.71 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/convention.php ( 11.74 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/application/tags.php ( 0.96 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Hook.php ( 5.58 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/application/common.php ( 2.10 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/helper.php ( 20.23 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/application/provider.php ( 0.76 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/config/app.php ( 5.47 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/facade/Env.php ( 1.17 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Facade.php ( 3.44 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/config/cache.php ( 0.95 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/config/console.php ( 0.91 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/config/cookie.php ( 1.11 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/config/database.php ( 2.16 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/config/log.php ( 1.16 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/config/middleware.php ( 0.85 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/config/session.php ( 1.06 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/config/template.php ( 1.39 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/config/trace.php ( 0.84 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Db.php ( 7.67 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Lang.php ( 7.38 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Request.php ( 56.42 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Log.php ( 8.81 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/log/driver/File.php ( 8.83 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/lang/zh-cn.php ( 12.58 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/route/long_route.php ( 4.33 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/facade/Route.php ( 3.83 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Route.php ( 25.74 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/route/Domain.php ( 7.07 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/route/RuleGroup.php ( 16.52 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/route/Rule.php ( 28.50 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/route/RuleItem.php ( 8.69 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/route/RuleName.php ( 3.83 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/route/route.php ( 5.69 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/route/dispatch/Url.php ( 5.00 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/route/Dispatch.php ( 9.27 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/route/dispatch/Module.php ( 5.33 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/application/index/middleware.php ( 0.07 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Middleware.php ( 5.34 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/application/index/http/middleware/LoginCheck.php ( 0.67 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/traits/controller/Jump.php ( 4.76 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Cookie.php ( 7.35 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/View.php ( 5.71 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/view/driver/Think.php ( 6.12 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Template.php ( 47.31 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/template/driver/File.php ( 2.29 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Session.php ( 14.13 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Debug.php ( 7.57 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Cache.php ( 3.27 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/cache/driver/File.php ( 7.91 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/cache/Driver.php ( 8.38 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/facade/Session.php ( 2.05 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/application/index/controller/Index.php ( 0.14 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/application/index/controller/Base.php ( 5.06 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Controller.php ( 7.44 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/Response.php ( 9.68 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/response/View.php ( 2.28 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/runtime/temp/c0188702c232e205fd2e941513123e76.php ( 4.72 KB )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">/www/wwwroot/mvp_order/thinkphp/library/think/debug/Html.php ( 4.02 KB )</li>                </ol>
+                </div>
+                            <div style="display:none;">
+                    <ol style="padding: 0; margin:0">
+                        <li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">[ LANG ] /www/wwwroot/mvp_order/thinkphp/lang/zh-cn.php</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">[ ROUTE ] array (
+    )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">[ HEADER ] array (
+      'cookie' =&gt; 'PHPSESSID=2m0pgue0dgruvqjmqnf0k4rsd6; thinkphp_show_page_trace=0|0',
+      'accept-language' =&gt; 'zh-CN,zh;q=0.9',
+      'accept-encoding' =&gt; 'gzip, deflate',
+      'referer' =&gt; 'http://lvy.mengxianfeng.club/login/',
+      'accept' =&gt; 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+      'user-agent' =&gt; 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36',
+      'upgrade-insecure-requests' =&gt; '1',
+      'cache-control' =&gt; 'max-age=0',
+      'connection' =&gt; 'keep-alive',
+      'host' =&gt; 'lvy.mengxianfeng.club',
+    )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">[ PARAM ] array (
+    )</li><li style="border-bottom:1px solid #EEE;font-size:14px;padding:0 12px">[ VIEW ] /www/wwwroot/mvp_order/application/index/view/index/index.html [ array (
+      0 =&gt; 'Menu',
+    ) ]</li>                </ol>
+                </div>
+                            <div style="display:none;">
+                    <ol style="padding: 0; margin:0">
+                                        </ol>
+                </div>
+                            <div style="display:none;">
+                    <ol style="padding: 0; margin:0">
+                                        </ol>
+                </div>
+                            <div style="display:none;">
+                    <ol style="padding: 0; margin:0">
+                                        </ol>
+                </div>
+                        </div>
+        </div>
+        <div id="think_page_trace_close" style="display:none;text-align:right;height:15px;position:absolute;top:10px;right:12px;cursor:pointer;"><img style="vertical-align:top;" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAAMDA////wAAACH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS4wLWMwNjAgNjEuMTM0Nzc3LCAyMDEwLzAyLzEyLTE3OjMyOjAwICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IFdpbmRvd3MiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MUQxMjc1MUJCQUJDMTFFMTk0OUVGRjc3QzU4RURFNkEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MUQxMjc1MUNCQUJDMTFFMTk0OUVGRjc3QzU4RURFNkEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxRDEyNzUxOUJBQkMxMUUxOTQ5RUZGNzdDNThFREU2QSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxRDEyNzUxQUJBQkMxMUUxOTQ5RUZGNzdDNThFREU2QSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgH//v38+/r5+Pf29fTz8vHw7+7t7Ovq6ejn5uXk4+Lh4N/e3dzb2tnY19bV1NPS0dDPzs3My8rJyMfGxcTDwsHAv769vLu6ubi3trW0s7KxsK+urayrqqmop6alpKOioaCfnp2cm5qZmJeWlZSTkpGQj46NjIuKiYiHhoWEg4KBgH9+fXx7enl4d3Z1dHNycXBvbm1sa2ppaGdmZWRjYmFgX15dXFtaWVhXVlVUU1JRUE9OTUxLSklIR0ZFRENCQUA/Pj08Ozo5ODc2NTQzMjEwLy4tLCsqKSgnJiUkIyIhIB8eHRwbGhkYFxYVFBMSERAPDg0MCwoJCAcGBQQDAgEAACH5BAAAAAAALAAAAAAPAA8AAAIdjI6JZqotoJPR1fnsgRR3C2jZl3Ai9aWZZooV+RQAOw=="></div>
+    </div>
+    <div id="think_page_trace_open" style="height:30px;float:right;text-align:right;overflow:hidden;position:fixed;bottom:0;right:0;color:#000;line-height:30px;cursor:pointer;">
+        <div style="background:#232323;color:#FFF;padding:0 6px;float:right;line-height:30px;font-size:14px">0.017351s </div>
+        <img width="30" style="" title="ShowPageTrace" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjVERDVENkZGQjkyNDExRTE5REY3RDQ5RTQ2RTRDQUJCIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjVERDVENzAwQjkyNDExRTE5REY3RDQ5RTQ2RTRDQUJCIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NURENUQ2RkRCOTI0MTFFMTlERjdENDlFNDZFNENBQkIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NURENUQ2RkVCOTI0MTFFMTlERjdENDlFNDZFNENBQkIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5fx6IRAAAMCElEQVR42sxae3BU1Rk/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">
+    </div>
+    
+    <script type="text/javascript">
+        (function(){
+            var tab_tit  = document.getElementById('think_page_trace_tab_tit').getElementsByTagName('span');
+            var tab_cont = document.getElementById('think_page_trace_tab_cont').getElementsByTagName('div');
+            var open     = document.getElementById('think_page_trace_open');
+            var close    = document.getElementById('think_page_trace_close').children[0];
+            var trace    = document.getElementById('think_page_trace_tab');
+            var cookie   = document.cookie.match(/thinkphp_show_page_trace=(\d\|\d)/);
+            var history  = (cookie && typeof cookie[1] != 'undefined' && cookie[1].split('|')) || [0,0];
+            open.onclick = function(){
+                trace.style.display = 'block';
+                this.style.display = 'none';
+                close.parentNode.style.display = 'block';
+                history[0] = 1;
+                document.cookie = 'thinkphp_show_page_trace='+history.join('|')
+            }
+            close.onclick = function(){
+                trace.style.display = 'none';
+                this.parentNode.style.display = 'none';
+                open.style.display = 'block';
+                history[0] = 0;
+                document.cookie = 'thinkphp_show_page_trace='+history.join('|')
+            }
+            for(var i = 0; i < tab_tit.length; i++){
+                tab_tit[i].onclick = (function(i){
+                    return function(){
+                        for(var j = 0; j < tab_cont.length; j++){
+                            tab_cont[j].style.display = 'none';
+                            tab_tit[j].style.color = '#999';
+                        }
+                        tab_cont[i].style.display = 'block';
+                        tab_tit[i].style.color = '#000';
+                        history[1] = i;
+                        document.cookie = 'thinkphp_show_page_trace='+history.join('|')
+                    }
+                })(i)
+            }
+            parseInt(history[0]) && open.click();
+            tab_tit[history[1]].click();
+        })();
+    </script>
+    
+    <script>
+        $(function(){
+            $('.nav-item>a').on('click',function(){
+                localStorage.setItem('nav_index',$(this).parent('li').index())
+                if($(this).next().css('display')=="none"){
+                    $('.nav-item').children('ul').slideUp(300);
+                    $(this).next('ul').slideDown(300);
+                    $(this).parent('li').addClass('nav-show').siblings('li').removeClass('nav-show');
+                }else{
+                    $(this).next('ul').slideUp(300);
+                    $('.nav-item .nav-show').removeClass('nav-show');
+                }
+            });
+    
+            nav_index = localStorage.getItem('nav_index');
+            $('.nav-item').eq(nav_index).addClass('nav-show');
+            $('.nav-item').eq(nav_index).children('ul').slideDown(300);
+        });
+    </script>
+    
+    
+    </body></html>

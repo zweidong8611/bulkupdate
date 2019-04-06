@@ -1,0 +1,93 @@
+@charset "utf-8";
+html{color:#000;background:#FFF;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,
+fieldset,input,textarea,p,blockquote,th,td {
+    margin:0;
+    padding:0;
+}
+table{
+    border-collapse:collapse;
+    border-spacing:0;
+}
+fieldset,img {
+    border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+    font-style:normal;
+    font-weight:normal;
+}
+ol,ul {
+    list-style:none;
+}
+caption,th {
+    text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+    font-size:100%;
+    font-weight:normal;
+}
+q:before,q:after {
+    content:'';
+}
+abbr,acronym { border:0;
+}
+*{
+    margin: 0px;
+    padding: 0px;
+
+}
+
+li{
+    list-style: none;
+}
+input,img{
+    border: none;
+}
+
+
+.header{ height:50px; line-height: 50px;background: #438eb9;position: fixed;
+    right: 0;left: 0;top: 0; }
+.header_logo{ padding: 13px 0 0 6px; float: left;}
+.header_nav{ float: right; padding-right: 20px; width: 500px;}
+a.header_nav_a { color: #fff; }
+a.header_nav_a:hover { color: #579ec8;}
+.clear{ clear: both;}
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+    background-color: #579ec8;
+     border-color: #438eb9;
+    color: #fff;
+}
+.container_aside{
+    border: 1px solid #ccc;
+    width: 190px;
+    position: fixed;
+    bottom: 0;left: 0;top: 50px;
+    z-index: -1;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-width: 0 1px 0 0;
+}
+
+.msgoffset{ position: fixed; top: 55px;}
+.container_main {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    min-height: 100%;
+    padding:60px 0 0 200px;
+}
+.nav-item a{  display: block;
+    overflow: hidden;
+    padding-left: 20px; text-decoration: none;
+    line-height: 46px;
+    max-height: 46px;
+    color:#666;border-bottom: 1px solid #e5e5e5;
+    /*font-weight: bold;*/
+    transition: all .3s; font-size: 14px;}
+.nav-item ul{ display: none;}
+.nav-item a span{ padding-left:8px; }
+.nav-item ul li a{ padding-left:38px; font-weight: normal; background: #fff;border-bottom: 1px dotted #e6e6e6}
+.nav-item ul li a:hover{ color: #2b7dbc;background: #fffff9;}
+li.nav_active a{ color: red;}
+.nav-more{float:right;margin:15px 6px 0 0;font-size:14px; font-weight: 400; transition:transform .3s}.nav-more::after{}.nav-show .nav-more{transform:rotate(90deg)}
+/*.nav-item{position:relative}.nav-item.nav-show{border-bottom:0}.nav-item ul{display:none;background:#fff;}.nav-item.nav-show ul{display:block}.nav-item>a:before{content:"";position:absolute;left:0;width:2px;height:40px;background:#34a0ce;opacity:0;transition:all .3s}.nav .nav-icon{font-size:20px;position:absolute;margin-left:-1px}.icon_1::after{content:"\e62b"}.icon_2::after{content:"\e669"}.icon_3::after{content:"\e61d"}.nav-more{float:right;margin-right:6px;font-size:12px;transition:transform .3s}.nav-more::after{content:"\e621";}.nav-show .nav-more{transform:rotate(90deg)}.nav-show,.nav-item>a:hover{color:#2b7dbc;}.nav-show>a:before,.nav-item>a:hover:before{opacity:1}.nav-item li:hover a{color: #585858;background:rgba(0,0,0,.1)}.nav-mini.nav{width:60px}.nav-mini.nav .nav-icon{}.nav-mini.nav .nav-item>a span{display:none}.nav-mini.nav .nav-more{margin-right:-20px}.nav-mini.nav .nav-item ul{position:absolute;top:0;left:60px;width:180px;z-index:99;background:#3c474c;overflow:hidden}.nav-mini.nav .nav-item:hover{background:rgba(255,255,255,.1)}.nav-mini.nav .nav-item:hover .nav-item a{color:#fff}.nav-mini.nav .nav-item:hover a:before{opacity:1}.nav-mini.nav .nav-item:hover ul{display:block}*/

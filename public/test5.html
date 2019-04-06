@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+	<style type="text/css">
+		.container {
+			display: flex;
+			flex-direction: column;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 0px;
+		}
+
+		header,
+		footer2 {
+			background-color: #707070;
+			padding: 10px;
+			flex: 1;
+			color: #fff;
+			text-align: center;
+		}
+
+		.grid {
+			display: flex;
+			min-height: 400px;
+		}
+
+		.left,
+		.right,
+		.center {
+			flex: 1;
+			text-align: center;
+			color: #fff;
+			line-height: 400px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+			<nav class="navbar navbar-expand navbar-expand-lg navbar-light bg-light">
+					<a class="navbar-brand" style="margin:0;padding:0;"><img src="img/logo.png" alt="瓢城企训网"></a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+					</button>
+	
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav mr-auto">
+									<li class="nav-item active">
+											<a class="nav-link" href="#">首页 <span class="sr-only">(current)</span></a>
+									</li>
+									<li class="nav-item">
+											<a class="nav-link" href="#"></a>
+									</li>
+									<li class="nav-item dropdown">
+											<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													资讯
+											</a>
+											<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+													<a class="dropdown-item" href="#">Action</a>
+													<a class="dropdown-item" href="#">Another action</a>
+													<div class="dropdown-divider"></div>
+													<a class="dropdown-item" href="#">Something else here</a>
+											</div>
+									</li>
+	
+									
+									<li class="nav-item">
+											<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+									</li>
+							</ul>
+							<form class="form-inline my-2 my-lg-0">
+									<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+									<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+							</form>
+					</div>
+			</nav>
+		<div class="grid">
+			<div class="left" style="background-color: #459;">left</div>
+			<div class="center" style="background-color: #ccc; flex: 3;">center</div>
+			<div class="right" style="background-color: #954;">right</div>
+		</div>
+    <footer class="footer mt-auto py-2">
+        <div class="container">
+            <span class="text-muted">Place sticky footer content here.</span>
+        </div>
+    </footer>
+	</div>
+</body>
+
+</html>
