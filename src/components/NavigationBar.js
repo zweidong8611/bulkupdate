@@ -27,17 +27,17 @@ const NavigationBar = () => {
             </Link>
           </li>
 
-          <li className="nav-item">
+{/*           <li className="nav-item">
             <Link to="/signup">
               <div className="nav-link ">测试</div>
             </Link>
-          </li>
+          </li> */}
 
         </ul>
-        <form className="form-inline my-2 my-lg-0">
+{/*         <form className="form-inline my-2 my-lg-0">
           <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
           <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        </form> */}
       </div>
     </nav>
   );
