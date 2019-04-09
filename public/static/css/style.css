@@ -47,7 +47,7 @@ input,img{
 
 .header{ height:50px; line-height: 50px;background: #438eb9;position: fixed;
     right: 0;left: 0;top: 0; }
-.header_logo{ padding: 13px 0 0 6px; float: left;}
+.header_logo{ padding: 5px 0 0 6px; float: left;}
 .header_nav{ float: right; padding-right: 20px; width: 500px;}
 a.header_nav_a { color: #fff; }
 a.header_nav_a:hover { color: #579ec8;}

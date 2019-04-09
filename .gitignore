@@ -10,6 +10,7 @@
 bulkupdate/
 # production
 /build
+/public/jishu
 build.zip
 .vscode/
 
